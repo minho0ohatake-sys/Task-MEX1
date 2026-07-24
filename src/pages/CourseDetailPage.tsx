@@ -1,12 +1,14 @@
 import { Link, useParams } from "react-router-dom";
 import CourseDetail from "../components/course/CourseDetail";
-import { mockCourses } from "../data/courses";
+import { useAppSelector } from "../store/hooks";
 
 function CourseDetailPage() {
   const { id } = useParams<{ id: string }>();
 
-  const course = mockCourses.find(
-    (item) => item.id === id,
+  const course = useAppSelector((state) =>
+    state.courses.items.find(
+      (item) => item.id === id,
+    ),
   );
 
   if (!course) {
@@ -22,7 +24,7 @@ function CourseDetailPage() {
 
         <Link
           to="/courses"
-          className="mt-6 inline-flex rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white transition-colors hover:bg-blue-700"
+          className="mt-6 inline-flex rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
         >
           Quay lại danh sách
         </Link>

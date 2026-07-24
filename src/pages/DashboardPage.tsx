@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAppSelector } from "../store/hooks";
 
 function DashboardPage() {
-  const { user } = useAuth();
+  const user = useAppSelector(
+    (state) => state.auth.user,
+  );
 
-  const courseCount = user?.courseIds.length ?? 0;
+  const courseCount =
+    user?.courseIds.length ?? 0;
 
   return (
     <section>
@@ -37,31 +40,23 @@ function DashboardPage() {
         </article>
 
         <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p className="text-sm font-medium text-slate-500">
+          <p className="text-sm text-slate-500">
             Đang học
           </p>
 
           <strong className="mt-3 block text-4xl text-amber-500">
             {courseCount}
           </strong>
-
-          <p className="mt-5 text-sm text-slate-500">
-            Tiếp tục hành trình học tập
-          </p>
         </article>
 
         <article className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p className="text-sm font-medium text-slate-500">
+          <p className="text-sm text-slate-500">
             Hoàn thành
           </p>
 
           <strong className="mt-3 block text-4xl text-emerald-600">
             0
           </strong>
-
-          <p className="mt-5 text-sm text-slate-500">
-            Chưa có khóa học hoàn thành
-          </p>
         </article>
       </div>
     </section>

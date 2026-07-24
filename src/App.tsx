@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./components/auth/PrivateRoute";
+import { mockCourses } from "./data/courses";
+import { coursesLoaded } from "./features/courses/coursesSlice";
 import DashboardLayout from "./layouts/DashboardLayout";
 import MainLayout from "./layouts/MainLayout";
 import CourseDetailPage from "./pages/CourseDetailPage";
@@ -7,14 +10,29 @@ import CoursesPage from "./pages/CoursesPage";
 import DashboardPage from "./pages/DashboardPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import MyCoursesPage from "./pages/MyCoursesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
-import MyCoursesPage from "./pages/MyCoursesPage";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "./store/hooks";
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  const coursesStatus = useAppSelector(
+    (state) => state.courses.status,
+  );
+
+  useEffect(() => {
+    if (coursesStatus === "idle") {
+      dispatch(coursesLoaded(mockCourses));
+    }
+  }, [coursesStatus, dispatch]);
+
   return (
     <Routes>
-      {/* Public routes */}
       <Route element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route
@@ -28,7 +46,6 @@ function App() {
         <Route path="login" element={<LoginPage />} />
       </Route>
 
-      {/* Private routes */}
       <Route element={<PrivateRoute />}>
         <Route
           path="dashboard"
@@ -38,12 +55,10 @@ function App() {
             index
             element={<DashboardPage />}
           />
-
           <Route
             path="my-courses"
             element={<MyCoursesPage />}
           />
-
           <Route
             path="profile"
             element={<ProfilePage />}

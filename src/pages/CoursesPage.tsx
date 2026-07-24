@@ -1,7 +1,11 @@
 import CourseList from "../components/course/CourseList";
-import { mockCourses } from "../data/courses";
+import { useAppSelector } from "../store/hooks";
 
 function CoursesPage() {
+  const courses = useAppSelector(
+    (state) => state.courses.items,
+  );
+
   return (
     <section>
       <div className="mb-8">
@@ -14,11 +18,11 @@ function CoursesPage() {
         </h1>
 
         <p className="mt-3 max-w-2xl text-slate-600">
-          Lựa chọn khóa học phù hợp để phát triển kỹ năng của bạn.
+          Lựa chọn khóa học phù hợp để phát triển kỹ năng.
         </p>
       </div>
 
-      <CourseList courses={mockCourses} />
+      <CourseList courses={courses} />
     </section>
   );
 }

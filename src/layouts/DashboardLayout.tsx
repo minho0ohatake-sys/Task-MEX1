@@ -1,98 +1,107 @@
 import {
-    NavLink,
-    Outlet,
-    useNavigate,
+  NavLink,
+  Outlet,
+  useNavigate,
 } from "react-router-dom";
 import Header from "../components/Header";
-import { useAuth } from "../contexts/AuthContext";
+import { logout } from "../features/auth/authSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../store/hooks";
 
 function DashboardLayout() {
-    const navigate = useNavigate();
-    const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-    const getNavClass = ({
-        isActive,
-    }: {
-        isActive: boolean;
-    }) =>
-        `rounded-lg px-4 py-3 text-sm font-medium transition-colors ${isActive
-            ? "bg-blue-600 text-white"
-            : "text-slate-300 hover:bg-slate-800 hover:text-white"
-        }`;
+  const user = useAppSelector(
+    (state) => state.auth.user,
+  );
 
-    const handleLogout = () => {
-        logout();
-        navigate("/login", { replace: true });
-    };
+  const getNavClass = ({
+    isActive,
+  }: {
+    isActive: boolean;
+  }) =>
+    `rounded-lg px-4 py-3 text-sm font-medium transition-colors ${
+      isActive
+        ? "bg-blue-600 text-white"
+        : "text-slate-300 hover:bg-slate-800 hover:text-white"
+    }`;
 
-    return (
-        <div className="flex min-h-screen flex-col bg-slate-100">
-            <Header />
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login", { replace: true });
+  };
 
-            <div className="flex flex-1 flex-col md:grid md:grid-cols-[240px_1fr]">
-                <aside className="flex flex-col bg-slate-900 p-5 text-white md:p-6">
-                    <div>
-                        <h2 className="text-2xl font-bold">
-                            Dashboard
-                        </h2>
+  return (
+    <div className="flex min-h-screen flex-col bg-slate-100">
+      <Header />
 
-                        <p className="mt-2 truncate text-sm text-slate-400">
-                            {user?.email}
-                        </p>
-                    </div>
+      <div className="flex flex-1 flex-col md:grid md:grid-cols-[240px_1fr]">
+        <aside className="flex flex-col bg-slate-900 p-5 text-white md:p-6">
+          <div>
+            <h2 className="text-2xl font-bold">
+              Dashboard
+            </h2>
 
-                    <nav className="mt-6 grid gap-2 sm:grid-cols-4 md:grid-cols-1">
-                        <NavLink
-                            to="/dashboard"
-                            end
-                            className={getNavClass}
-                        >
-                            Overview
-                        </NavLink>
+            <p className="mt-2 truncate text-sm text-slate-400">
+              {user?.email}
+            </p>
+          </div>
 
-                        <NavLink
-                            to="/dashboard/my-courses"
-                            className={getNavClass}
-                        >
-                            My Courses
-                        </NavLink>
+          <nav className="mt-6 grid gap-2 sm:grid-cols-4 md:grid-cols-1">
+            <NavLink
+              to="/dashboard"
+              end
+              className={getNavClass}
+            >
+              Overview
+            </NavLink>
 
-                        <NavLink
-                            to="/dashboard/profile"
-                            className={getNavClass}
-                        >
-                            Profile
-                        </NavLink>
+            <NavLink
+              to="/dashboard/my-courses"
+              className={getNavClass}
+            >
+              My Courses
+            </NavLink>
 
-                        <NavLink
-                            to="/"
-                            className="rounded-lg px-4 py-3 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
-                        >
-                            ← Back to Home
-                        </NavLink>
-                    </nav>
+            <NavLink
+              to="/dashboard/profile"
+              className={getNavClass}
+            >
+              Profile
+            </NavLink>
 
-                    <button
-                        type="button"
-                        onClick={handleLogout}
-                        className="mt-6 rounded-lg bg-red-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-red-700 md:mt-auto"
-                    >
-                        Đăng xuất
-                    </button>
-                </aside>
+            <NavLink
+              to="/"
+              className="rounded-lg px-4 py-3 text-sm font-medium text-slate-300 transition-colors hover:bg-slate-800 hover:text-white"
+            >
+              ← Back to Home
+            </NavLink>
+          </nav>
 
-                <main className="p-4 sm:p-6 md:p-10">
-                    <Outlet />
-                </main>
-            </div>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="mt-6 rounded-lg bg-red-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-red-700 md:mt-auto"
+          >
+            Đăng xuất
+          </button>
+        </aside>
 
-            <footer className="bg-slate-900 py-6 text-center text-sm text-slate-300">
-                <div className="mx-auto max-w-7xl px-4">
-                    © 2026 MEX Learning
-                </div>
-            </footer>
+        <main className="p-4 sm:p-6 md:p-10">
+          <Outlet />
+        </main>
+      </div>
+
+      <footer className="bg-slate-900 py-6 text-center text-sm text-slate-300">
+        <div className="mx-auto max-w-7xl px-4">
+          © 2026 MEX Learning
         </div>
-    );
+      </footer>
+    </div>
+  );
 }
 
 export default DashboardLayout;

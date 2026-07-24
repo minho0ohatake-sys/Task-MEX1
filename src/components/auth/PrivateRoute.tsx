@@ -3,11 +3,14 @@ import {
   Outlet,
   useLocation,
 } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAppSelector } from "../../store/hooks";
 
 function PrivateRoute() {
-  const { isLoggedIn } = useAuth();
   const location = useLocation();
+
+  const isLoggedIn = useAppSelector(
+    (state) => state.auth.isLoggedIn,
+  );
 
   if (!isLoggedIn) {
     return (

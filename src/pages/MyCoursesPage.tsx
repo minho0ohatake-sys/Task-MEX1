@@ -1,12 +1,10 @@
 import CourseList from "../components/course/CourseList";
-import { useAuth } from "../contexts/AuthContext";
-import { mockCourses } from "../data/courses";
+import { selectMyCourses } from "../features/courses/courseSelectors";
+import { useAppSelector } from "../store/hooks";
 
 function MyCoursesPage() {
-  const { user } = useAuth();
-
-  const myCourses = mockCourses.filter((course) =>
-    user?.courseIds.includes(course.id),
+  const myCourses = useAppSelector(
+    selectMyCourses,
   );
 
   return (
