@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
+import CourseDetailPage from "./pages/CourseDetailPage";
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
       <Route element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="courses" element={<CoursesPage />} />
+        <Route
+          path="courses/:id"
+          element={<CourseDetailPage />}
+        />
         <Route path="login" element={<LoginPage />} />
       </Route>
 
