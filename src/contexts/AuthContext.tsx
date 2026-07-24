@@ -5,8 +5,9 @@ import {
   type ReactNode,
 } from "react";
 
-type User = {
+export type User = {
   email: string;
+  courseIds: string[];
 };
 
 type AuthContextValue = {
@@ -20,9 +21,9 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
-const AuthContext = createContext<AuthContextValue | undefined>(
-  undefined,
-);
+const AuthContext = createContext<
+  AuthContextValue | undefined
+>(undefined);
 
 export function AuthProvider({
   children,
@@ -30,7 +31,14 @@ export function AuthProvider({
   const [user, setUser] = useState<User | null>(null);
 
   const login = (email: string) => {
-    setUser({ email });
+    setUser({
+      email,
+      courseIds: [
+        "react-fundamentals",
+        "typescript-complete",
+        "tailwind-css",
+      ],
+    });
   };
 
   const logout = () => {

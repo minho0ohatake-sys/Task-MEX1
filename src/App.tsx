@@ -9,6 +9,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
+import MyCoursesPage from "./pages/MyCoursesPage";
 
 function App() {
   return (
@@ -37,6 +38,12 @@ function App() {
             index
             element={<DashboardPage />}
           />
+
+          <Route
+            path="my-courses"
+            element={<MyCoursesPage />}
+          />
+
           <Route
             path="profile"
             element={<ProfilePage />}
