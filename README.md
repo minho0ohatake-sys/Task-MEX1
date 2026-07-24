@@ -4,8 +4,58 @@ MEX Learning là ứng dụng Mini Learning Management System được xây dự
 
 ## Live Demo
 
-- **Website:** Đang cập nhật
+- **Website:** [Link Demo](https://task-mex-1.vercel.app/)
 - **GitHub:** [Task MEX1](https://github.com/minho0ohatake-sys/Task-MEX1)
+
+## Screenshots
+
+### Home Page
+
+Trang chủ giới thiệu nền tảng, tính năng nổi bật và lời kêu gọi khám phá khóa học.
+
+![MEX Learning Home Page](./src/screenshots/home-page.png)
+
+### Courses Page
+
+Danh sách khóa học với thông tin giảng viên, trình độ, thời lượng, học phí và nút yêu thích.
+
+![MEX Learning Courses Page](./src/screenshots/courses-page.png)
+
+### Course Detail Page
+
+Trang hiển thị thông tin chi tiết của một khóa học.
+
+![MEX Learning Course Detail Page](./src/screenshots/course-detail-page.png)
+
+### Favorites Page
+
+Danh sách khóa học được người dùng lưu vào Favorites.
+
+![MEX Learning Favorites Page](./src/screenshots/favorites-page.png)
+
+### Login Page
+
+Giao diện đăng nhập giả lập bằng email.
+
+![MEX Learning Login Page](./src/screenshots/login-page.png)
+
+### Dashboard Page
+
+Trang tổng quan hiển thị thông tin và thống kê khóa học của người dùng.
+
+![MEX Learning Dashboard Page](./src/screenshots/dashboard-page.png)
+
+### My Courses Page
+
+Danh sách các khóa học người dùng đã đăng ký.
+
+![MEX Learning My Courses Page](./src/screenshots/my-courses-page.png)
+
+### Profile Page
+
+Trang hiển thị thông tin tài khoản và số lượng khóa học của người dùng.
+
+![MEX Learning Profile Page](./src/screenshots/profile-page.png)
 
 ## Features
 
