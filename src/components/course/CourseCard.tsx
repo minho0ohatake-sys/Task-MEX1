@@ -1,4 +1,9 @@
 import { Link } from "react-router-dom";
+import { favoriteToggled } from "../../features/favorites/favoritesSlice";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../store/hooks";
 import type { Course } from "../../types/course";
 
 type CourseCardProps = {
@@ -6,6 +11,8 @@ type CourseCardProps = {
 };
 
 function CourseCard({ course }: CourseCardProps) {
+  const dispatch = useAppDispatch();
+
   const {
     id,
     title,
@@ -19,18 +26,52 @@ function CourseCard({ course }: CourseCardProps) {
     rating,
   } = course;
 
-  const formattedPrice = new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND",
-  }).format(price);
+  const isFavorite = useAppSelector(
+    (state) =>
+      state.favorites.ids.includes(id),
+  );
+
+  const formattedPrice =
+    new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
+
+  const handleToggleFavorite = () => {
+    dispatch(favoriteToggled(id));
+  };
 
   return (
     <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-      <img
-        src={imageUrl}
-        alt={title}
-        className="h-48 w-full object-cover"
-      />
+      <div className="relative">
+        <img
+          src={imageUrl}
+          alt={title}
+          className="h-48 w-full object-cover"
+        />
+
+        <button
+          type="button"
+          onClick={handleToggleFavorite}
+          aria-label={
+            isFavorite
+              ? `Bỏ yêu thích ${title}`
+              : `Yêu thích ${title}`
+          }
+          title={
+            isFavorite
+              ? "Bỏ khỏi yêu thích"
+              : "Thêm vào yêu thích"
+          }
+          className={`absolute top-4 right-4 grid h-11 w-11 place-content-center rounded-full text-xl shadow-md transition hover:scale-110 ${
+            isFavorite
+              ? "bg-red-500 text-white"
+              : "bg-white text-slate-500 hover:text-red-500"
+          }`}
+        >
+          {isFavorite ? "♥" : "♡"}
+        </button>
+      </div>
 
       <div className="p-5">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-2">

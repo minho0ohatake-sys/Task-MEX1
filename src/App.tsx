@@ -12,6 +12,7 @@ import LoginPage from "./pages/LoginPage";
 import MyCoursesPage from "./pages/MyCoursesPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage";
+import FavoritesPage from "./pages/FavoritesPage";
 import {
   useAppDispatch,
   useAppSelector,
@@ -34,13 +35,14 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route
-          path="courses"
-          element={<CoursesPage />}
-        />
+        <Route path="courses" element={<CoursesPage />} />
         <Route
           path="courses/:id"
           element={<CourseDetailPage />}
+        />
+        <Route
+          path="favorites"
+          element={<FavoritesPage />}
         />
         <Route path="login" element={<LoginPage />} />
       </Route>

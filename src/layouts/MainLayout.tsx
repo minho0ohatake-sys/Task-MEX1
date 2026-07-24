@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 function MainLayout() {
@@ -12,11 +13,7 @@ function MainLayout() {
         </div>
       </main>
 
-      <footer className="bg-slate-900 py-6 text-center text-sm text-slate-300">
-        <div className="mx-auto max-w-7xl px-4">
-          © 2026 MEX Learning
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
