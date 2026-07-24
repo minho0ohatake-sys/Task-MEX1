@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import PrivateRoute from "./components/auth/PrivateRoute";
-import { mockCourses } from "./data/courses";
-import { coursesLoaded } from "./features/courses/coursesSlice";
+import { fetchCourses } from "./features/courses/coursesSlice";
 import DashboardLayout from "./layouts/DashboardLayout";
 import MainLayout from "./layouts/MainLayout";
 import CourseDetailPage from "./pages/CourseDetailPage";
@@ -27,7 +26,7 @@ function App() {
 
   useEffect(() => {
     if (coursesStatus === "idle") {
-      dispatch(coursesLoaded(mockCourses));
+      dispatch(fetchCourses());
     }
   }, [coursesStatus, dispatch]);
 

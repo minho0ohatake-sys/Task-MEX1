@@ -5,11 +5,37 @@ import { useAppSelector } from "../store/hooks";
 function CourseDetailPage() {
   const { id } = useParams<{ id: string }>();
 
-  const course = useAppSelector((state) =>
-    state.courses.items.find(
-      (item) => item.id === id,
-    ),
+  const { items, status, error } =
+    useAppSelector((state) => state.courses);
+
+  const course = items.find(
+    (item) => item.id === id,
   );
+
+  if (
+    status === "idle" ||
+    status === "loading"
+  ) {
+    return (
+      <p className="rounded-2xl bg-white p-8 text-center text-slate-600 shadow-sm">
+        Đang tải thông tin khóa học...
+      </p>
+    );
+  }
+
+  if (status === "failed") {
+    return (
+      <section className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center">
+        <h1 className="text-2xl font-bold text-red-700">
+          Không thể tải khóa học
+        </h1>
+
+        <p className="mt-3 text-red-600">
+          {error}
+        </p>
+      </section>
+    );
+  }
 
   if (!course) {
     return (
@@ -24,7 +50,7 @@ function CourseDetailPage() {
 
         <Link
           to="/courses"
-          className="mt-6 inline-flex rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+          className="mt-6 inline-flex rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white transition-colors hover:bg-blue-700"
         >
           Quay lại danh sách
         </Link>
