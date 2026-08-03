@@ -1,4 +1,8 @@
 import { Link } from "react-router-dom";
+import CourseList from "../components/course/CourseList";
+import { useAppDispatch, useAppSelector, } from "../store/hooks";
+import { fetchCourses } from "../features/courses/coursesSlice";
+import { useEffect } from "react";
 
 const features = [
   {
@@ -22,6 +26,19 @@ const features = [
 ];
 
 function HomePage() {
+
+  const dispatch = useAppDispatch();
+
+  const { items, status } = useAppSelector(
+    (state) => state.courses
+  );
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchCourses());
+    }
+  }, [dispatch, status]);
+
   return (
     <div className="space-y-16">
       {/* Hero */}
@@ -108,6 +125,40 @@ function HomePage() {
             Đánh giá trung bình
           </p>
         </article>
+      </section>
+
+      {/* Courses */}
+      <section>
+        <div className="mb-8 text-center">
+          <span className="font-semibold text-blue-600">
+            Khóa học nổi bật
+          </span>
+
+          <h2 className="mt-2 text-3xl font-bold">
+            Danh sách khóa học
+          </h2>
+
+          <p className="mt-3 text-slate-600">
+            Khám phá các khóa học được nhiều học viên lựa chọn.
+          </p>
+        </div>
+
+        {status === "loading" || status === "idle" ? (
+          <p className="text-center">
+            Đang tải khóa học...
+          </p>
+        ) : (
+          <CourseList courses={items} />
+        )}
+
+        <div className="mt-8 text-center">
+          <Link
+            to="/courses"
+            className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
+          >
+            Xem tất cả khóa học
+          </Link>
+        </div>
       </section>
 
       {/* Features */}
