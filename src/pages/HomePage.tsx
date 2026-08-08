@@ -88,6 +88,23 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Courses */}
+      <section>
+        <div className="mb-8 text-center">
+          <h2 className="mt-2 text-3xl font-bold">
+            Danh sách khóa học
+          </h2>
+        </div>
+
+        {status === "loading" || status === "idle" ? (
+          <p className="text-center">
+            Đang tải khóa học...
+          </p>
+        ) : (
+          <CourseList courses={items} />
+        )}
+      </section>
+
       {/* Stats */}
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <article className="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm">
@@ -126,41 +143,6 @@ function HomePage() {
           </p>
         </article>
       </section>
-
-      {/* Courses */}
-      <section>
-        <div className="mb-8 text-center">
-          <span className="font-semibold text-blue-600">
-            Khóa học nổi bật
-          </span>
-
-          <h2 className="mt-2 text-3xl font-bold">
-            Danh sách khóa học
-          </h2>
-
-          <p className="mt-3 text-slate-600">
-            Khám phá các khóa học được nhiều học viên lựa chọn.
-          </p>
-        </div>
-
-        {status === "loading" || status === "idle" ? (
-          <p className="text-center">
-            Đang tải khóa học...
-          </p>
-        ) : (
-          <CourseList courses={items} />
-        )}
-
-        <div className="mt-8 text-center">
-          <Link
-            to="/courses"
-            className="rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
-          >
-            Xem tất cả khóa học
-          </Link>
-        </div>
-      </section>
-
       {/* Features */}
       <section>
         <div className="mx-auto max-w-2xl text-center">
